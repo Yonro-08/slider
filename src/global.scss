@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+body {
+	margin: 0;
+	color: #eee;
+	font-family: Poppins;
+	font-size: 12px;
+	background-color: #000;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+header {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 1140px;
+	max-width: 80%;
+	height: 50px;
+	margin: auto;
+	z-index: 1;
+
+	a {
+		margin-right: 40px;
+	}
+}
+
+.carousel {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	margin-top: -50px;
+	overflow: hidden;
+
+	&.next,
+	&.prev {
+		// .arrows {
+		// 	button {
+		// 		pointer-events: none;
+		// 	}
+		// }
+		.time {
+			width: 100%;
+			animation: timeRunning 2s linear 1 forwards;
+		}
+	}
+
+	&.next {
+		.list {
+			.item {
+				&:nth-child(1) {
+					img {
+						position: absolute;
+						left: 50%;
+						bottom: 50px;
+						width: 150px;
+						height: 220px;
+						border-radius: 20px;
+						animation: showImage 0.5s linear 1 forwards;
+					}
+				}
+			}
+		}
+		.thumbnail {
+			transform: translateX(150px);
+			animation: transformThumbnail 0.5s linear 1 forwards;
+			.item {
+				&:nth-last-child(1) {
+					width: 0;
+					overflow: hidden;
+					animation: showThumbnail 0.5s linear 1 forwards;
+				}
+			}
+		}
+	}
+
+	&.prev {
+		.list {
+			.item {
+				&:nth-child(2) {
+					z-index: 2;
+
+					img {
+						position: absolute;
+						bottom: 0;
+						left: 0;
+						animation: outImage 0.5s linear 1 forwards;
+					}
+
+					.title,
+					.author,
+					.des,
+					.topic,
+					.buttons {
+						animation: contentOut 0.8s linear 1 forwards;
+					}
+				}
+			}
+		}
+		.thumbnail {
+			.item {
+				&:nth-child(1) {
+					width: 0;
+					overflow: hidden;
+					opacity: 0;
+					animation: showThumbnail 0.5s linear 1 forwards;
+				}
+			}
+		}
+	}
+
+	.list {
+		.item {
+			position: absolute;
+			inset: 0;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			.content {
+				position: absolute;
+				top: 20%;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 1140px;
+				max-width: 80%;
+				padding-right: 30%;
+				color: #fff;
+				text-shadow: 0 5px 10px #0004;
+				box-sizing: border-box;
+
+				.author {
+					font-weight: bold;
+					letter-spacing: 10px;
+				}
+
+				.title,
+				.topic {
+					font-weight: bold;
+					font-size: 5em;
+					line-height: 1.3em;
+				}
+
+				.topic {
+					color: #f1683a;
+				}
+
+				.buttons {
+					display: grid;
+					grid-template-columns: repeat(2, 130px);
+					grid-template-rows: 40px;
+					gap: 5px;
+					margin-top: 20px;
+
+					button {
+						letter-spacing: 3px;
+						font-family: Poppins;
+						font-weight: 500;
+						background-color: #eee;
+						border: none;
+
+						&:nth-child(2) {
+							background-color: transparent;
+							color: #eee;
+							border: 1px solid #eee;
+						}
+					}
+				}
+			}
+
+			&:nth-child(1) {
+				z-index: 1;
+
+				.title,
+				.author,
+				.topic,
+				.des,
+				.buttons {
+					transform: translateY(50px);
+					filter: blur(20px);
+					opacity: 0;
+					animation: showContent 0.5s 1s linear 1 forwards;
+				}
+
+				.author {
+					animation-delay: 0.3s;
+				}
+				.title {
+					animation-delay: 0.5s;
+				}
+				.topic {
+					animation-delay: 0.7s;
+				}
+				.des {
+					animation-delay: 0.9s;
+				}
+				.buttons {
+					animation-delay: 1.1s;
+				}
+			}
+		}
+	}
+
+	.thumbnail {
+		position: absolute;
+		bottom: 50px;
+		left: 50%;
+		display: flex;
+		gap: 20px;
+		width: max-content;
+		z-index: 100;
+
+		.item {
+			position: relative;
+			flex-shrink: 0;
+			width: 150px;
+			height: 220px;
+
+			img {
+				width: 100%;
+				height: 100%;
+				border-radius: 20px;
+				object-fit: cover;
+			}
+
+			.content {
+				position: absolute;
+				bottom: 10px;
+				left: 10px;
+				right: 10px;
+
+				.title {
+					font-weight: bold;
+				}
+			}
+		}
+	}
+
+	.arrows {
+		position: absolute;
+		top: 80%;
+		left: 20%;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		width: 300px;
+		max-width: 30%;
+		z-index: 10;
+
+		button {
+			width: 40px;
+			height: 40px;
+			font-family: monospace;
+			font-size: large;
+			font-weight: bold;
+			color: #fff;
+			background-color: #eee4;
+			border: none;
+			border-radius: 50%;
+			transition: background-color 0.5s;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #eee;
+				color: #555;
+			}
+		}
+	}
+
+	.time {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 3px;
+		background-color: #f1683a;
+		z-index: 100;
+	}
+}
+
+@media screen and (max-width: 678px) {
+	.carousel {
+		.list {
+			.item {
+				.content {
+					padding-right: 0;
+
+					.title {
+						font-size: 30px;
+					}
+				}
+			}
+		}
+	}
+}
+
+@keyframes showContent {
+	to {
+		opacity: 1;
+		filter: blur(0);
+		transform: translateY(0);
+	}
+}
+
+@keyframes showImage {
+	to {
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 0;
+	}
+}
+
+@keyframes showThumbnail {
+	to {
+		width: 150px;
+		opacity: 1;
+	}
+}
+
+@keyframes transformThumbnail {
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes outImage {
+	to {
+		left: 50%;
+		bottom: 50px;
+		width: 150px;
+		height: 220px;
+		border-radius: 20px;
+	}
+}
+
+@keyframes contentOut {
+	to {
+		transform: translateY(150px);
+		filter: blur(20px);
+		opacity: 0;
+	}
+}
+
+@keyframes timeRunning {
+	to {
+		width: 0;
+	}
+}
